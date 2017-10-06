@@ -20,6 +20,9 @@ import scipy.spatial.distance as dist
 from collections import defaultdict as ddict
 import random
 
+
+# == keras callback for setting norm of entity embeddings to 1 after every gradient update. Helps performance. Normalising layers are for calibrating weights of DM/MF in a joint model.
+
 class UnitEmbeddings(Callback):
     def on_batch_end(self, batch, logs={}):
         entity_embedding_names = set(['entity_embeddings', 'entity_embeddings_E', 'entity_embeddings_DM', 'entity_embeddings_real', 'entity_embeddings_im'])
@@ -37,6 +40,7 @@ class UnitEmbeddings(Callback):
                 curr_b = np.clip(curr_b, -0.005, 0.005)
                 layer.set_weights([curr_W, curr_b])
 
+# == callback function for evaluting the model after every opts.eval_every epoch. Implements checkpointing and logging when the best model is found.
 
 class EvaluateModel(Callback):
     def __init__(self, func, opts, model_name = "",  eval_support=True):
@@ -76,6 +80,8 @@ class EvaluateModel(Callback):
                 self.func(self.model)
                 self._save()    
 
+
+# == Dropout callback for preventing overfitting
 class Dropout_e(Callback):
     def __init__(self, opts):
         self.opts = opts

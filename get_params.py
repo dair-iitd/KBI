@@ -79,11 +79,6 @@ def get_params():
     print "l2 regularization relations", opts.l2_relation
     print "l2 regularization relations MF", opts.l2_relation_MF
     
-    #if opts.model_path != "":
-    #    assert(opts.train == 0)        
-    #    print "Testing on %s" %(opts.model_path)
 
-
-    print(opts)
     return opts
 
