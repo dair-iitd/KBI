@@ -1,3 +1,5 @@
+import warnings
+warnings.simplefilter("ignore", UserWarning)
 from keras.layers import *
 from lib.wrappers import *
 from lib.models import *
@@ -23,6 +25,47 @@ import resource
 import h5py
 from collections import Counter
 from collections import defaultdict as dd
+
+
+def train_baselines(opts, inputs):
+    train_entities, train_relations, neg_samples = inputs
+
+    print("Running baseline models")
+    pred_array_1 = np.zeros((opts.num_relations, opts.num_entities)) 
+    pred_array_2 = np.zeros((opts.num_entities,  opts.num_entities)) 
+    trainDataSize = train_entities.shape[0]
+    testData, oov_flags_1, oov_flags_2, seen_e2, oov_e2 = get_test_data_DM(opts, True)
+    for i in xrange(trainDataSize):
+        e1,e2 = train_entities[i] 
+        r = train_relations[i]
+        pred_array_1[r][e2] += 1
+        pred_array_2[e1][e2] += 1
+
+    MRR=[0.0, 0.0]
+    hits=[0.0, 0.0]
+    for i, test_point in enumerate(testData):
+        e1, r, gold_e2 = test_point 
+
+        rank1 = 1 + np.sum(pred_array_1[r][gold_e2] < pred_array_1[r]) - np.sum(pred_array_1[r][gold_e2] < pred_array_1[r][seen_e2[i]])
+        same = np.sum(pred_array_1[r][gold_e2] == pred_array_1[r]) - np.sum(pred_array_1[r][gold_e2] == pred_array_1[r][seen_e2[i]])
+        rank1 += same/2.0
+
+        rank2 = 1 + np.sum(pred_array_2[e1][gold_e2] < pred_array_2[e1]) - np.sum(pred_array_2[e1][gold_e2] < pred_array_2[e1][seen_e2[i]])
+        same = np.sum(pred_array_2[e1][gold_e2] == pred_array_2[e1]) - np.sum(pred_array_2[e1][gold_e2] == pred_array_2[e1][seen_e2[i]])
+        rank2 += same/2.0
+
+
+        MRR[0] += 1.0/rank1
+        hits[0] += (rank1 <= 10)
+        MRR[1] += 1.0/rank2
+        hits[1] += (rank2 <= 10)
+
+    for i in xrange(2):
+        MRR[i] /= len(testData)
+        hits[i] /= len(testData)
+
+
+    return MRR, hits
 
 
 '''
@@ -92,15 +135,6 @@ def dispatch_model(opts, inputs):
                                             oov_flags_1, oov_flags_2,seen_e2, oov_e2, score_fn, score_fn_aux, distMult_scorer,oov_flags)                
     
 
-    elif opts.model == "complex":
-        model = None
-        #model = build_atomic_model(opts, getComplex_score)
-        testData, oov_flags_1, oov_flags_2, seen_e2, oov_e2 = get_test_data_DM(opts, True)
-        score_fn = complex_oovEval()
-        evalFunc = lambda model_weights: score_complex_helper(model_weights, opts, testData, oov_flags_1, oov_flags_2, seen_e2, oov_e2, score_fn)     
-
-
-
 
     elif opts.model == "concat":
         model = build_atomic_model(opts, getConcat_score)
@@ -138,44 +172,11 @@ def dispatch_model(opts, inputs):
 
 
     elif opts.model == "freq":
-        print("Running baseline models")
-        pred_array_1 = np.zeros((opts.num_relations, opts.num_entities)) 
-        pred_array_2 = np.zeros((opts.num_entities,  opts.num_entities)) 
-        trainDataSize = train_entities.shape[0]
-        testData, oov_flags_1, oov_flags_2, seen_e2, oov_e2 = get_test_data_DM(opts, True)
-        for i in xrange(trainDataSize):
-            e1,e2 = train_entities[i] 
-            r = train_relations[i]
-            pred_array_1[r][e2] += 1
-            pred_array_2[e1][e2] += 1
-
-        MRR=[0.0, 0.0]
-        hits=[0.0, 0.0]
-        for i, test_point in enumerate(testData):
-            e1, r, gold_e2 = test_point 
-
-            rank1 = 1 + np.sum(pred_array_1[r][gold_e2] < pred_array_1[r]) - np.sum(pred_array_1[r][gold_e2] < pred_array_1[r][seen_e2[i]])
-            same = np.sum(pred_array_1[r][gold_e2] == pred_array_1[r]) - np.sum(pred_array_1[r][gold_e2] == pred_array_1[r][seen_e2[i]])
-            rank1 += same/2.0
-
-            rank2 = 1 + np.sum(pred_array_2[e1][gold_e2] < pred_array_2[e1]) - np.sum(pred_array_2[e1][gold_e2] < pred_array_2[e1][seen_e2[i]])
-            same = np.sum(pred_array_2[e1][gold_e2] == pred_array_2[e1]) - np.sum(pred_array_2[e1][gold_e2] == pred_array_2[e1][seen_e2[i]])
-            rank2 += same/2.0
-
-
-            MRR[0] += 1.0/rank1
-            hits[0] += (rank1 <= 10)
-            MRR[1] += 1.0/rank2
-            hits[1] += (rank2 <= 10)
-
-        for i in xrange(2):
-        	MRR[i] /= len(testData)
-        	hits[i] /= len(testData)
-
-
+        MRR, hits = train_baselines(opts, inputs)
         print("freq(r, e2)\t MRR: %5.4f, HITS@10: %5.4f" %(MRR[0], hits[0]))
         print("freq(e1, e2)\t MRR: %5.4f, HITS@10: %5.4f" %(MRR[1], hits[1]))
         sys.exit(0)
+
 
     else:
         print("Please pass a valid model name.")
