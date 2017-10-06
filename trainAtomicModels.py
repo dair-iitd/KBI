@@ -220,19 +220,10 @@ if __name__ == '__main__':
             model_file = "finalModels/%s" %(opts.model_path)
 
 
-        if opts.model == "complex":
-            e1 = joblib.load("complex_weights/complex_e1.joblib")
-            e2 = joblib.load("complex_weights/complex_e2.joblib")
-            r1 = joblib.load("complex_weights/complex_r1.joblib")
-            r2 = joblib.load("complex_weights/complex_r2.joblib")
-
-            print("Read Model weights")
-            mrr, hits = evalFunc([e1,e2,r1,r2]) 
-        else: 
-            print(model.summary())    
-            print "Reading from %s" %(model_file)
-            model.load_weights("%s" %(model_file), by_name=True)
-            mrr, hits = evalFunc(model)
+        print(model.summary())    
+        print "Reading from %s" %(model_file)
+        model.load_weights("%s" %(model_file), by_name=True)
+        mrr, hits = evalFunc(model)
 
         print("MRR: %5.4f, HITS: %5.4f" %(mrr, hits))
 
