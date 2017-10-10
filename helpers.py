@@ -81,7 +81,7 @@ class EvaluateModel(Callback):
                 self._save()    
 
 
-# == Dropout callback for preventing overfitting
+# == Dropout callback for preventing overfitting. Deprecated
 class Dropout_e(Callback):
     def __init__(self, opts):
         self.opts = opts
@@ -101,7 +101,7 @@ class Dropout_e(Callback):
                     layer.set_weights([entity_weights])
 
                         
-        
+# == Callback for joint training of an entity typing model along with a KBI model. Alternates between gradient updates of KBI and entity typing.        
 class typeNetTrainerCallback(Callback):
     def __init__(self, aux_model, entity_types, entity_neg_types, opts):
         self.aux_model = aux_model
@@ -131,13 +131,13 @@ def get_pretrained(modelMF, modelDM):
     return entity_weights, relation_weights, oov_weights
 
 
-def has_valid(opts):
-    return True     
+
+# == A collection of helper functions for reading Tensor/Matrix factorization data that has been preprocessed, id-fied and stored as numpy joblibs.
 
 def get_train_data_tensor(opts, verbose=False):
     data_path = opts.dataset
     try:
-        folder = "train_dev_tensor" if opts.evalDev and not has_valid(opts) else "train_tensor" 
+        folder = "train_dev_tensor" if opts.evalDev else "train_tensor" 
 
         train_entities  = joblib.load('%s/%s/train_entities.joblib' %(data_path, folder))
         train_relations = joblib.load('%s/%s/train_relations.joblib'%(data_path, folder))
@@ -162,7 +162,7 @@ def get_train_data_tensor(opts, verbose=False):
 def get_negative_samples_joint(opts, verbose=False):
     data_path = opts.dataset
     try:
-        folder = "train_dev_tensor" if opts.evalDev and not has_valid(opts) else "train_tensor" 
+        folder = "train_dev_tensor" if opts.evalDev else "train_tensor" 
         if opts.train:
             neg_data_tf = joblib.load("%s/%s/train_neg_samples_joint_tf.joblib" %(data_path, folder))
             neg_data_mf = joblib.load("%s/%s/train_neg_samples_joint_mf.joblib" %(data_path, folder))
@@ -190,18 +190,12 @@ def get_negative_samples_joint(opts, verbose=False):
 def get_train_data_matrix(opts, verbose=False):
     data_path = opts.dataset
     try:
-        folder = "train_dev_matrix" if opts.evalDev and not has_valid(opts) else "train_matrix" 
-        folder_tensor = "train_dev_tensor" if opts.evalDev and not has_valid(opts) else "train_tensor" 
+        folder = "train_dev_matrix" if opts.evalDev else "train_matrix" 
+        folder_tensor = "train_dev_tensor" if opts.evalDev  else "train_tensor" 
         train_entities = joblib.load("%s/%s/train_pair_entities.joblib" %(data_path, folder))
         train_relations = joblib.load("%s/%s/train_pair_relations.joblib" %(data_path, folder))
         train_pair_ids  = joblib.load("%s/%s/train_entityPairIds.joblib" %(data_path, folder))
         if opts.train:
-            # The choice of negative sampling matters for MF.
-#            if opts.oov_train:
-#                train_neg_samples = joblib.load("%s/%s/train_neg_samples_joint_mf.joblib" %(data_path, folder_tensor))
-#            else:
-#                train_neg_samples = joblib.load("%s/%s/train_pair_neg_samples.joblib" %(data_path, folder))
-            
             train_neg_samples = joblib.load("%s/%s/train_pair_neg_samples.joblib" %(data_path, folder))
             delete_from = opts.neg_samples
             delete_till = train_neg_samples.shape[1]
@@ -257,7 +251,7 @@ def get_test_data_DM(opts, verbose=False):
     data_path = opts.dataset
     try:
         if opts.evalDev:
-            folder = "valid_tensor" if has_valid(opts) else "dev_tensor"
+            folder = "valid_tensor"
         else:
             folder = "test_tensor" 
 
@@ -297,10 +291,7 @@ def get_aux_data_E(opts):
 def get_test_data_matrix(opts, verbose=False):
     data_path = opts.dataset
     try:
-        if has_valid(opts):
-            folder = "valid_matrix" if opts.evalDev else "test_matrix"
-        else:
-            folder = "dev_matrix" if opts.evalDev else "test_matrix" 
+        folder = "valid_matrix" if opts.evalDev else "test_matrix"
 
         oov_flags = joblib.load("%s/%s/oov_flags_MF.joblib" %(data_path, folder))
         seen_e2 = joblib.load("%s/%s/filters_MF.joblib" %(data_path, folder))
@@ -395,6 +386,8 @@ def get_other_features(opts, verbose=True):
         print("invalid dataset.")
         sys.exit(1)
 
+
+# == partitions candidate e2s for an (e1, r, ?) query into 2 categories based on whether (e1, e2') is OOV or not. We use this to speed up MF-OOV evaluation.
 def convertToSets(opts, allowedEP, filter_e2):
     data_path = opts.dataset
     f = open("%s/entity_pair_id.txt" %data_path); entity_pair = f.readlines(); f.close()

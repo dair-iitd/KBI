@@ -134,15 +134,6 @@ def dispatch_model(opts, inputs):
         evalFunc = lambda model: scoreDM_OOV(model,opts, testData, [train_entities, train_relations], 
                                             oov_flags_1, oov_flags_2,seen_e2, oov_e2, score_fn, score_fn_aux, distMult_scorer,oov_flags)                
     
-
-
-    elif opts.model == "concat":
-        model = build_atomic_model(opts, getConcat_score)
-        testData, oov_flags_1, oov_flags_2, seen_e2, oov_e2 = get_test_data_DM(opts, True)
-        _ , oov_flags, _, _  = get_test_data_matrix(opts, verbose=True)
-
-        score_fn = concat_oovEval()
-        evalFunc = lambda model: scoreConcat_OOV(model,opts, testData, train_entities, oov_flags_1, oov_flags_2,seen_e2, oov_e2, score_fn, oov_flags)                
     
     elif opts.model == "E":
         model = build_atomic_model(opts, getE_score)
