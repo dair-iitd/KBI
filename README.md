@@ -1,8 +1,7 @@
 # Joint Matrix-Tensor Factorization for Knowledge Base Inference
 Code for our TACL 2017 Submission titled "Joint Matrix-Tensor Factorization for Knowledge Base Inference" ([arXiv](https://arxiv.org/pdf/1706.00637.pdf))
 
-Joint Matrix-Tensor Factorization for Knowledge Base Inference, Prachi Jain*, Shikhar Murty*, Mausam, Soumen Chakrabarti 
-* Equal Contribution
+Joint Matrix-Tensor Factorization for Knowledge Base Inference, Prachi Jain*, Shikhar Murty*, Mausam, Soumen Chakrabarti  (*Equal Contribution)
 
 # Running instructions
 First clone the repository:
