@@ -9,35 +9,8 @@ import theano.tensor as T
 import numpy as np
 import sys
 from keras.constraints import nonneg
-    
+from lib.tensor_manipulators import *
 
-''' Some helper functions '''
-
-def custom_fn_MF(input):
-    r_dot_e   = input[0]
-    r_dot_e_prime= input[1]
-    
-    '''denom_e1 = sum{j=1..200}dot(r_s, e1) + dot(r_o, e2j') '''
-    denom_e = r_dot_e_prime 
-    max_denom_e = T.max(denom_e, axis = 1, keepdims=True)
-    denom_e = T.exp(denom_e - max_denom_e).sum(axis=1)
-
-    numer = r_dot_e 
-    numer = numer - max_denom_e.dimshuffle(0)
-    net_score= numer - T.log(denom_e) 
-    return -1*net_score
-
-def custom_fn_MF_max_margin(input):
-    r_dot_e   = input[0]
-    r_dot_e_prime= input[1]
-    denom_e = r_dot_e_prime 
-    numer = r_dot_e 
-    net_score= T.sum(T.maximum(0,1.0 + denom_e.dimshuffle(0,1) - numer.dimshuffle(0,'x') ) )
-    return 1*net_score
-
-
-def lossFn(y_true, y_pred):
-    return T.mean(y_pred)
 
 
 def getMF_score(kb_entity_pairs, kb_relations, neg_samples_kb, opts): 
@@ -63,6 +36,8 @@ def getMF_score(kb_entity_pairs, kb_relations, neg_samples_kb, opts):
     r_dot_e_prime = merge([relation_vectors, entity_pair_negative_vectors], mode ='dot', output_shape = (neg_samples), dot_axes=(1,2))
 
     return r_dot_e, r_dot_e_prime
+
+
 ''' Energy based neural net models '''           
 
 def build_MFModel(opts):
@@ -83,10 +58,10 @@ def build_MFModel(opts):
 
     r_dot_e, r_dot_e_prime = getMF_score(kb_entity_pairs, kb_relations, neg_samples_kb, opts) 
     if opts.loss == "ll":
-        score_kb  = merge([r_dot_e, r_dot_e_prime], mode = custom_fn_MF, output_shape = (1,))
+        score_kb  = merge([r_dot_e, r_dot_e_prime], mode = softmax_approx, output_shape = (1,))
     elif opts.loss == "mm":
         print "Using Max-margin loss"
-        score_kb  = merge([r_dot_e, r_dot_e_prime], mode = custom_fn_MF_max_margin, output_shape = (1,))
+        score_kb  = merge([r_dot_e, r_dot_e_prime], mode = max_margin, output_shape = (1,))
         
     if optimizer=='Adagrad':
         alg = Adagrad(lr=opts.lr)

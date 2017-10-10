@@ -10,34 +10,7 @@ import theano.tensor as T
 import numpy as np
 import sys
 from keras import backend as K
-
-def lossFn(y_true, y_pred):
-    return T.mean(y_pred)
-
-def cross_e1_e2(X):
-    e1 = X[:,0]
-    e2 = X[:,1]
-    return e1*e2
-
-def get_cross(i, neg_samples):
-    def cross_fn(entity_vecs, entity_negative_vecs):
-        ei = entity_vecs[:,i]
-        id_ei = entity_negative_vecs[:, i*neg_samples : (i+1)*neg_samples]
-        return ei.dimshuffle(0,'x',1)*id_ei
-    return lambda X: cross_fn(X[0], X[1])
-
-def get_dot(i):
-    def dot_fn(relation_vecs, entity_vecs):
-        ei = entity_vecs[:,i]
-        dotProd = T.batched_dot(relation_vecs, ei)
-        return dotProd
-    return lambda X: dot_fn(X[0], X[1])
-
-def get_dot_neg(i, neg_samples):
-    def dot_fn(relation_vecs, entity_negative_vecs):
-        id_ei = entity_negative_vecs[:, i*neg_samples: (i+1)*neg_samples]
-        return T.batched_dot(id_ei,relation_vecs)
-    return lambda X: dot_fn(X[0], X[1]) 
+from lib.tensor_manipulators import *
 
 
 def get_forward_pass(layers):   
@@ -52,16 +25,10 @@ def get_forward_pass(layers):
 
     return run
 
-def get_softmax_approx(input):
-    score_combined, score_combined_e2_corrupt = input
-    ''' f(e1, r, e2) = r.T(e1*e2) '''
-    '''denom_e1 = sum{j=1..200}exp(f(e1, r, e2j)) where e2j is a negative sample '''
-    max_denom_e2 = T.max(score_combined_e2_corrupt, axis = 1, keepdims=True)
-    denom_e2 = T.exp(score_combined_e2_corrupt - max_denom_e2).sum(axis=1)
 
-    numer = score_combined - max_denom_e2.dimshuffle(0)
-    net_score= numer - T.log(denom_e2)
-    return -1*net_score
+
+
+# == Energies for a Bunch of hybrid MF + TF models from our paper (refer https://arxiv.org/abs/1706.00637)
 
 def getE_score_joint(kb_entities, kb_relations, neg_samples_kb, opts):
     neg_samples   = opts.neg_samples
@@ -255,18 +222,9 @@ def adder_model(MF_data, DM_data, opts):
 
     return score_combined, score_combined_e2_corrupt
 
-def get_max_margin(input):
-    score, score_e1_corrupt = input
-    net_loss =  T.sum(T.maximum(0,1.0 + score_e1_corrupt - score.dimshuffle(0,'x')), axis=1)
-    return 1*net_loss
 
-def get_loss_fn(opts):
-    if opts.loss == "ll":
-        print "Using log likelihood based loss!"
-        return get_softmax_approx
-    elif opts.loss == "mm":
-        print "using max-margin loss!"
-        return get_max_margin
+
+# == Main Driver function for creating a hybrid TF + MF model. Based on the flags, creates all the models in Table-7 of https://arxiv.org/abs/1706.00637
 
 def build_joint_model(opts, combine_func, adder_model=False, add_loss = False):
     neg_samples = opts.neg_samples
@@ -331,7 +289,7 @@ def build_joint_model(opts, combine_func, adder_model=False, add_loss = False):
             score_combined = merge([score_MF, score_E], mode = lambda X: X[0]+X[1], output_shape=(1,))
             score_combined_e2_corrupt = merge([score_MF_corrupted, score_E_e2_corrupted], mode = lambda X: X[0]+X[1], output_shape = (neg_samples,)) 
 
-            log_likelihood_kb = merge([score_combined, score_combined_e2_corrupt], mode= get_softmax_approx, output_shape=(1,))            
+            log_likelihood_kb = merge([score_combined, score_combined_e2_corrupt], mode= softmax_approx, output_shape=(1,))            
 
                
     else:
@@ -341,9 +299,9 @@ def build_joint_model(opts, combine_func, adder_model=False, add_loss = False):
         score_MF, score_MF_corrupted = getMF_score_joint(kb_entity_pairs, kb_relations, neg_samples_kb_MF, relations_MF, opts)
         score_DM, score_DM_e1_corrupted, score_DM_e2_corrupted = getDM_score_joint(kb_entities, kb_relations, neg_samples_kb_DM, relations_DM, opts)
         if add_loss:
-            log_likelihood_kb_MF = merge([score_MF, score_MF_corrupted], mode= get_softmax_approx, output_shape=(1,))
-            log_likelihood_kb_DM_1 = merge([score_DM, score_DM_e1_corrupted], mode= get_softmax_approx, output_shape=(1,))
-            log_likelihood_kb_DM_2 = merge([score_DM, score_DM_e2_corrupted], mode= get_softmax_approx, output_shape=(1,))
+            log_likelihood_kb_MF = merge([score_MF, score_MF_corrupted], mode= softmax_approx, output_shape=(1,))
+            log_likelihood_kb_DM_1 = merge([score_DM, score_DM_e1_corrupted], mode= softmax_approx, output_shape=(1,))
+            log_likelihood_kb_DM_2 = merge([score_DM, score_DM_e2_corrupted], mode= softmax_approx, output_shape=(1,))
             log_likelihood_kb_DM = merge([log_likelihood_kb_DM_1 , log_likelihood_kb_DM_2], lambda X: X[0] + X[1], output_shape = (1,))
             log_likelihood_kb    = merge([log_likelihood_kb_MF , log_likelihood_kb_DM], lambda X: X[0] + X[1], output_shape = (1,))
         
@@ -354,13 +312,7 @@ def build_joint_model(opts, combine_func, adder_model=False, add_loss = False):
             log_likelihood_kb = merge([score_combined, score_combined_e2_corrupt], mode=get_loss_fn(opts), output_shape=(1,))
 
 
-    if optimizer=='Adagrad':
-        alg = Adagrad(lr=opts.lr)
-    elif optimizer=='RMSprop':
-        alg = RMSprop(lr=opts.lr)
-    else:
-        print("This optimizer is currently not supported. Modify models.py if you wish to add it")
-        sys.exit(1)
+    alg = get_optimizer(opts)
 
     if not adder_model:
         model = Model(input=[kb_entities, kb_entity_pairs, kb_relations, aux_features, neg_samples_kb_DM, neg_samples_kb_MF], output=log_likelihood_kb)
