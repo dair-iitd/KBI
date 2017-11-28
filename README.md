@@ -37,6 +37,6 @@ dump_data_pairwise.py
 
 with the right set of parameters. (For info on parameters, run dump_data.py -h)
 
-For the datasets, please mail me at shikhar.murty@gmail.com. 
+For the datasets, please contact the authors. 
 
 
