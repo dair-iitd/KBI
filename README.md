@@ -6,7 +6,7 @@ Joint Matrix-Tensor Factorization for Knowledge Base Inference, Prachi Jain*, Sh
 # Running instructions
 First clone the repository:
 ```
-https://github.com/MurtyShikhar/KBI.git
+https://github.com/dair-iitd/KBI.git
 ```
 
 Make sure you have Keras by running:
