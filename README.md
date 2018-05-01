@@ -1,12 +1,12 @@
 # Joint Matrix-Tensor Factorization for Knowledge Base Inference
-Code for our TACL 2017 Submission titled "Joint Matrix-Tensor Factorization for Knowledge Base Inference" ([arXiv](https://arxiv.org/pdf/1706.00637.pdf))
+Code for our IJCAI 2018 Submission titled "Mitigating the Effect of Out-of-Vocabulary Entity Pairs in Matrix Factorization for KB Inference" ([arXiv2017](https://arxiv.org/pdf/1706.00637.pdf))
 
 Joint Matrix-Tensor Factorization for Knowledge Base Inference, Prachi Jain*, Shikhar Murty*, Mausam, Soumen Chakrabarti  (*Equal Contribution)
 
 # Running instructions
 First clone the repository:
 ```
-git clone https://github.com/MurtyShikhar/KBI.git
+https://github.com/MurtyShikhar/KBI.git
 ```
 
 Make sure you have Keras by running:
