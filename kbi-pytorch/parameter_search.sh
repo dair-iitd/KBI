@@ -1,0 +1,3 @@
+CUDA_VISIBLE_DEVICES=0 python3 main.py -d yago -m typed_model -a '{"embedding_dim":19, "base_model_name":"distmult", "base_model_arguments":{"embedding_dim":180}}' -l softmax_loss -r 0.5 -g 0.3 -b 2000 -x 2000 -n 200 -e 100
+CUDA_VISIBLE_DEVICES=1 python3 main.py -d yago -m typed_model -a '{"embedding_dim":19, "base_model_name":"distmult", "base_model_arguments":{"embedding_dim":180}}' -l softmax_loss -r 0.5 -g 0.3 -b 2000 -x 2000 -n 200 -e 100
+CUDA_VISIBLE_DEVICES=0 python3 main.py -d yago -m typed_model -a '{"embedding_dim":19, "base_model_name":"distmult", "base_model_arguments":{"embedding_dim":180}}' -l softmax_loss -r 0.5 -g 0.4 -b 2000 -x 2000 -n 200 -e 100
