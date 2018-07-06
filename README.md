@@ -1,21 +1,10 @@
 # Joint Matrix-Tensor Factorization for Knowledge Base Inference
-Code for our IJCAI 2018 Submission titled "Mitigating the Effect of Out-of-Vocabulary Entity Pairs in Matrix Factorization for KB Inference" ([arXiv2017](https://arxiv.org/pdf/1706.00637.pdf))
+kbi-keras: Code for our IJCAI 2018 submission titled "Mitigating the Effect of Out-of-Vocabulary Entity Pairs in Matrix Factorization for KB Inference" ([arXiv2017](https://arxiv.org/pdf/1706.00637.pdf))
 
-Joint Matrix-Tensor Factorization for Knowledge Base Inference, Prachi Jain*, Shikhar Murty*, Mausam, Soumen Chakrabarti  (*Equal Contribution)
+kbi-pytorch: Code for our ACL 2018 submission titled "Type-Sensitive Knowledge Base Inference Without Explicit Type Supervision" 
+
 
 # Running instructions
-First clone the repository:
-```
-https://github.com/dair-iitd/KBI.git
-```
-
-Make sure you have Keras by running:
-```
-sudo pip install keras
-```
-Also, ensure you have the latest versions of both **Theano** and **numpy**.
-
-
 To run the atomic models(where every relation is considered as an atom), for example DistMult, E or TransE, run the following:
 
 ```
