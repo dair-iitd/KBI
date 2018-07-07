@@ -1,6 +1,7 @@
 # Joint Matrix-Tensor Factorization for Knowledge Base Inference
 Code for our IJCAI 2018 Submission titled "Mitigating the Effect of Out-of-Vocabulary Entity Pairs in Matrix Factorization for KB Inference" 
 ([arXiv2017](https://arxiv.org/pdf/1706.00637.pdf))
+
 Prachi Jain*, Shikhar Murty*, Mausam, Soumen Chakrabarti  (*Equal Contribution)
 
 # Running instructions
