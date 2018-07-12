@@ -17,7 +17,7 @@ sudo pip install keras
 Also, ensure you have the latest versions of both **Theano** and **numpy**.
 
 
-To run the atomic models(where every relation is considered as an atom), for example DistMult, E or TransE, run the following:
+To run the atomic models(where every relation is considered as an atom), for example complex, MF, distMult, typedDM, E, TransE, MF-constraint, MF-constraint-2 run the following:
 
 ```
 ./run.sh <dataset> <model> atomic
@@ -25,6 +25,11 @@ To run the atomic models(where every relation is considered as an atom), for exa
 where MODEL can be **distMult**, **E** , **complex** , **TransE**, DATASET is **wn18**, **fb15k**, **fb15k-237**, **nyt-fb** and OPTIMIZER is
 either **Adagrad** or **RMSprop**
 
+
+Sample commands:
+```
+
+```
 
 To create training data, run
 ```

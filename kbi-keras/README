@@ -1,0 +1,25 @@
+Software requirements:
+Keras Version:
+Theano Version:
+Numpy
+Joblib
+
+How to run the code:
+
+DM:
+bash run.sh 
+
+Complex:
+
+TransE:
+
+E:
+
+MF:
+
+DM+E:
+
+
+
+
+

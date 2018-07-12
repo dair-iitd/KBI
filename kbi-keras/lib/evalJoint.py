@@ -270,7 +270,7 @@ def score_joint(model, opts, testData_DM, testData_MF, allowedEP, allowedEP_e2_D
     print "(MF) max: %5.4f min: %5.4f, mean: %5.4f, std-dev: %5.4f" %(max(MF),min(MF), np.mean(MF), np.std(MF))
     print "(alphas) max: %5.4f min: %5.4f, mean: %5.4f, std-dev: %5.4f" %(max(alphas),min(alphas), np.mean(alphas), np.std(alphas))
     print "(same) max: %5.4f min: %5.4f, mean: %5.4f, std-dev: %5.4f" %(max(same), min(same), np.mean(same), np.std(same))
-   
+    print np.mean(1.0/ranks), np.mean(ranks <= 10.0), np.mean(ranks <= 1.0),np.mean(ranks) 
     return np.mean(1.0/ranks), np.mean(ranks <= 10.0)
 
 

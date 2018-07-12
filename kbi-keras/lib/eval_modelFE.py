@@ -97,5 +97,5 @@ def score_FE(model, opts, testData_E, testData_MF, allowedEP, allowedEP_e2, notA
 
     mrr = np.mean(1.0/ranks)
     hits = np.mean(ranks <= 10.0)
-
+    print np.mean(1.0/ranks),np.mean(ranks <= 10.0),np.mean(ranks <= 1.0),np.mean(ranks)
     return np.mean(1.0/ranks), np.mean(ranks <= 10.0)
