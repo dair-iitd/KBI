@@ -60,8 +60,20 @@ TypedComplex
 
 where DATASET is **wn18**, **fb15k**, **fb15k-237**, **nyt-fb** and OPTIMIZER is either **Adagrad** or **RMSprop**
 
-### Dataset
-For the datasets, please contact the authors. 
+### Model performance summary
+We report the scores obtained from the models trained using keras(theano) code (100 dim model) here.
+
+| Model | -- | FB15K |--  |
+| -----|-- |---|--|
+| -----| MRR | H10| H1|
+| DM | 60.82 | 46.51 | 84.78 |
+| Complex | 66.97 | 55.21 | 85.60 |
+|E|22.86|16.4|35.04|
+|TransE|43.11|24.99|71.97|
+|F|20.21|16.26|27.42|
+|F+Complex(AS)|16.84|11.48|26.42|
+|F+Complex(RAL)|67.46|56.00|85.80|
+
 
 ### Stored models
 
