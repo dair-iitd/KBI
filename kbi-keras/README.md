@@ -65,11 +65,11 @@ bash run_combined.sh <DATASET> FEDM <LOG-FILE> combined 1 0 0 100 0.5 0 0 0 0 10
 
 F+Complex(AS)
 bash run_combined.sh <DATASET> adderNet <LOG-FILE> combined 1 0 0 100 0.5 0 0 0 0 100 0
-ep and e reg varies = 0
+ep and e reg = 0
 
 F+Complex (AL)
 bash run_combined.sh <DATASET> adderNet <LOG-FILE> combined 1 0 0 100 0.5 0 0 0 1 100 0
-ep and e reg varies = 0 
+ep and e reg = 0 
 
 F+Complex(RAL)
 bash run_combined.sh <DATASET> adderNet <LOG-FILE> combined 1 0 0 100 0.5 0 0 0 1 100 0
