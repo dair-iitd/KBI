@@ -8,7 +8,8 @@ This project contains Pytorch and Keras(theano) implementation of Knowledge Base
 ## Repository Navigation:
 ./kbi-keras: Keras (theano) code for our IJCAI 2018 submission titled "Mitigating the Effect of Out-of-Vocabulary Entity Pairs in Matrix Factorization for KB Inference" and ACL 2018 submission titled "Type-Sensitive Knowledge Base Inference Without Explicit Type Supervision"
 
-This folder has code for the following models: DM, Complex, E, TransE, F+E(AS), F+Complex(AS), F+E+DM(AS), F+Complex (AL), F+Complex(RAL), TypedDM, TypedComplex  
+This folder has code for the following models: DM, Complex, E, TransE, F+E(AS), F+Complex(AS), F+E+DM(AS), F+Complex (AL), F+Complex(RAL), TypedDM, TypedComplex.
+  
 Note that we are not maintaining the keras(theano) repo anymore. 
 
 ./kbi-pytorch: Pytorch code for our ACL 2018 submission titled "Type-Sensitive Knowledge Base Inference Without Explicit Type Supervision"
