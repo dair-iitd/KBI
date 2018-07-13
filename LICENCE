@@ -1,0 +1,42 @@
+KBI Model Software License Agreement
+ 
+KBI Model Software
+(C) 2018, IIT Delhi and IIT Bombay.  All rights reserved.
+ 
+The Indian Institute of Technology Delhi (IITD) and Indian Institute of Technology Bombay (IITB) Professors - Dr Mausam, Dr Soumen Chakarbarti; Students - Prachi Jain, Pankaj Kumar, Shikhar Murty (Developers) give permission for you and your laboratory (University) to use KBI Model Software. IITD, IITB and the Developers allow you to copy and modify KBI Model Software for non-commercial purposes, and to distribute modifications through GitHub or directly to IITD or IITB, on the following conditions:
+ 
+ 
+1.  KBI Model Software is not used for any commercial purposes, or as part of a system which has commercial purposes.
+ 
+ 
+2.  Any software derived from KBI Model Software must carry prominent notices stating that you modified it along with the date modified.  The derivative must also carry prominent notices stating that it is released under this KBI Model Software Software License Agreement.
+ 
+If you wish to obtain KBI Model Software or to obtain any patent rights for any commercial purposes, you will need to contact Mausam at IIT Delhi to see if rights are available and to negotiate a commercial license and pay a fee. This includes, but is not limited to, using Open IE 5 to provide services to outside parties for a fee. In that case please contact:
+ 
+Mausam
+Bharti Building (Computer Sc)
+IIT Delhi, Hauz Khas
+New Delhi 110016, INDIA
+ 
+Phone: +91-11-26591291
+Email: mausam@cse.iitd.ac.in
+ 
+ 
+3. You retain in KBI Model Software and any modifications to KBI Model Software, the copyright,trademark, patent or other notices pertaining to KBI Model Software as provided by IITB and IITD.
+ 
+ 
+4. You provide the Developers with feedback on the use of the KBI Model software in your research, and that the Developers, IITD and IITB are permitted to use any information you provide in making changes to the KBI Model software. All bug reports and technical questions shall be sent to: p6.jain@gmail.com.
+Modifications may be communicated through GitHub pull requests at:
+ 
+    https://github.com/dair-iitd/
+ 
+ 
+5. You acknowledge that the Developers, IITD, IITB and its licensees may develop modifications to KBI Model Software that may be substantially similar to your modifications of KBI Model Software, and that the Developers, IITD, UW and its licensees shall not be constrained in any way by you in IITD’s, IITB's or its licensees' use or management of such modifications. You acknowledge the right of the Developers, IITD, and IITB to prepare and publish modifications to KBI Model Software that may be substantially similar or functionally equivalent to your modifications and improvements, and if you obtain patent protection for any modification or improvement to KBI Model Software you agree not to allege or enjoin infringement of your patent by the Developers, the IITD, the IITB or by any of IITB's or IITD’s licensees obtaining modifications or improvements to Open IE 5 from the Indian Institute of Technology Delhi, Indian Institute of Technology Bombay  or the Developers.
+ 
+6. If utilization of the KBI Model Software results in outcomes which will be published, please specify the version of KBI Model Software you used and cite the IITD Developers.
+ 
+ 
+7. Any risk associated with using the KBI Model Software at your organization is with you and your organization. KBI Model Software is experimental in nature and is made available as a research courtesy "AS IS," without obligation by IITB or IITD to provide accompanying services or support.
+ 
+ 
+IITD, IITB AND THE AUTHORS EXPRESSLY DISCLAIM ANY AND ALL WARRANTIES REGARDING THE SOFTWARE, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES PERTAINING TO MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
