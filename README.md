@@ -10,7 +10,7 @@ This project contains Pytorch and Keras(theano) implementation of Knowledge Base
 
 This folder has code for the following models: DM, Complex, E, TransE, F+E(AS), F+Complex(AS), F+E+DM(AS), F+Complex (AL), F+Complex(RAL), TypedDM, TypedComplex.
   
-Note that we are not maintaining the keras(theano) repo anymore. 
+_Note that we are not maintaining the keras(theano) repo anymore._ 
 
 ./kbi-pytorch: Pytorch code for our ACL 2018 submission titled "Type-Sensitive Knowledge Base Inference Without Explicit Type Supervision"
 
