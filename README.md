@@ -1,7 +1,8 @@
 # Knowledge Base Inference
-This project contains Pytorch and Keras(theano) implementation of Knowledge Base Inference (KBI) Models used in the following publications [1][2]. The code has been developed at Indian Institute of Technology, Delhi (IIT Delhi). The KBI model in this repository traines over structured knowledge bases like FB15k, WN18, NYT-FB and Yago3-10. You can also add your own KB seamlessly. 
+This project contains Pytorch and Keras(theano) implementation of Knowledge Base Inference (KBI). Models used in the following publications [1][2]. The code has been developed at Indian Institute of Technology, Delhi (IIT Delhi). The KBI model in this repository traines over structured knowledge bases like FB15k, WN18, NYT-FB and Yago3-10. You can also add your own KB seamlessly. 
 
 [1] Mitigating the Effect of Out-of-Vocabulary Entity Pairs in Matrix Factorization for KB Inference. Jain, Prachi and Murty, Shikhar and ., Mausam and Chakarbarti, Soumen. IJCAI 2018
+
 [2] Type-Sensitive Knowledge Base Inference Without Explicit Type Supervision. Jain, Prachi and Kumar, Pankaj and ., Mausam and Chakarbarti, Soumen. ACL 2018
 
 ## Repository Navigation:
