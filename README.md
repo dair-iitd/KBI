@@ -33,6 +33,7 @@ We report the scores obtained from keras(theano) code (100 dim model) here.
 |F+Complex(RAL)|67.46|56.00|85.80|
 
 Following are scores obtained from pytorch implementation. Note that they are much better than the model trained using keras(theano) framework.
+
 | Model | -- | FB15K |--  |
 | -----|-- |---|--|
 | -----| MRR | H10| H1|
