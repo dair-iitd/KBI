@@ -1,6 +1,0 @@
-Each folder corresponding to the models has the following files:
-1. final model file (*.h5)
-2. log file (training details, mrr)
-3. rank of predicted answer (corresponding to the test set)
-4. top 50 predictions of the model (corresponding to the test set) - arranged in rev order
-
