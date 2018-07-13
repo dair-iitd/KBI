@@ -44,16 +44,31 @@ Sample commands to train models:
 ```
 This folder has code for the following models: 
 DM
+bash run.sh <DATASET> distMult <LOG-FILE> atomic 1 0 0 100 0.5 0 0 100 0.01 0
+
 Complex
+bash run.sh <DATASET> distMult <LOG-FILE> atomic 1 0 0 100 0.5 0 0 100 0.01 0
+
 E
+bash run.sh <DATASET> E <LOG-FILE> atomic 1 0 0 100 0.5 1 0 100 0 0
+Don't forget to change the loss to ll in run.sh
+
 TransE 
+bash run.sh <DATASET> TransE <LOG-FILE> atomic 1 0 0 100 0.5 1 0 100 0 0
+Don't forget to change the loss to mm in run.sh
+
 F+E(AS)
 F+Complex(AS)
 F+E+DM(AS)
 F+Complex (AL) 
 F+Complex(RAL)
+
 TypedDM
+bash run.sh <DATASET> typedDM <LOG-FILE> atomic 1 0 0 180 0.5 0 0 100 0.01 19
+Don't forget to change the loss to ll in run.sh
+
 TypedComplex
+<to be added>
 
 ```
 
