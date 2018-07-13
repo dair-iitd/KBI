@@ -11,7 +11,7 @@ import os
 
 '''
 This script prepares the data for all the models. To Run:
-python dump_data.py -neg_samples [] -dataset [currently supports fb15k-237/ nyt] -num_entities [for negative sampling]
+python dump_data.py -neg_samples [] -dataset [] -num_entities []
 
 
 output:

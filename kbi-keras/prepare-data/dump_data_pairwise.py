@@ -10,7 +10,7 @@ import os
 
 '''
 This script prepares the data for Matrix Factorization model. To Run:
-python dump_data.py -neg_samples [] -dataset [currently supports fb15k-237/WN18/fb15k] -num_entities [for negative sampling]
+python dump_data_pairwise.py -neg_samples [] -dataset [] -num_entities []
 
 input:
 encode_pair_train.txt, encode_pair_text.txt (empty for WN18/FB15k), encode_pair_test.txt, encode_pair_valid.txt, entity_pair_id.txt
