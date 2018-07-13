@@ -76,4 +76,4 @@ We report the scores obtained from the models trained using keras(theano) code (
 
 
 ### Stored models
-
+Folder ./bestModels stores the models trained from the code you run.
