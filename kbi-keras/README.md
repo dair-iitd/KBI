@@ -62,10 +62,13 @@ F+Complex(AS)
 F+E+DM(AS)
 F+Complex (AL) 
 F+Complex(RAL)
+bash run_combined.sh <DATASET> adderNet <LOG-FILE> combined 1 0 0 100 0.5 0 0 0 1 100 0
 
 TypedDM
 bash run.sh <DATASET> typedDM <LOG-FILE> atomic 1 0 0 180 0.5 0 0 100 0.01 19
-Don't forget to change the loss to ll in run.sh
+Don't forget to change the loss to in run.sh
+
+
 
 TypedComplex
 <to be added>
