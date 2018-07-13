@@ -26,7 +26,11 @@ The following table reports the best scores obtained by each of the model on FB1
 | TypeDM | 75.39 | 89.26 | 66.09 |
 | Complex | 68.50 | 87.08 | 57.04 | 
 | TypeComplex | 75.43 | 89.45 | 66.18 | 
-
+|E||||
+|TransE||||
+|F|20.21|16.26|27.42|
+|F+Complex(AS)|16.84|11.48|26.42|
+|F+Complex(RAL)|67.46|56.00|85.80|
 
 ## License
 This software comes under a non-commercial use license, please see the LICENSE file.
