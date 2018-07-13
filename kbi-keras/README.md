@@ -58,39 +58,47 @@ bash run.sh <DATASET> TransE <LOG-FILE> atomic 1 0 0 100 0.5 1 0 100 0 0
 Don't forget to change the loss to mm in run.sh
 
 F+E(AS)
-F+Complex(AS)
+bash run_combined.sh <DATASET> FE <LOG-FILE> combined 1 0 0 100 0.5 0 0 0 0 100 0
+
 F+E+DM(AS)
-F+Complex (AL) 
+bash run_combined.sh <DATASET> FEDM <LOG-FILE> combined 1 0 0 100 0.5 0 0 0 0 100 0
+
+F+Complex(AS)
+bash run_combined.sh <DATASET> adderNet <LOG-FILE> combined 1 0 0 100 0.5 0 0 0 0 100 0
+ep and e reg varies = 0
+
+F+Complex (AL)
+bash run_combined.sh <DATASET> adderNet <LOG-FILE> combined 1 0 0 100 0.5 0 0 0 1 100 0
+ep and e reg varies = 0 
+
 F+Complex(RAL)
 bash run_combined.sh <DATASET> adderNet <LOG-FILE> combined 1 0 0 100 0.5 0 0 0 1 100 0
+ep and e reg varies
 
 TypedDM
 bash run.sh <DATASET> typedDM <LOG-FILE> atomic 1 0 0 180 0.5 0 0 100 0.01 19
-Don't forget to change the loss to in run.sh
-
-
+Don't forget to change the loss to logistic in run.sh
 
 TypedComplex
 <to be added>
 
 ```
 
-
 where DATASET is **wn18**, **fb15k**, **fb15k-237**, **nyt-fb** and OPTIMIZER is either **Adagrad** or **RMSprop**
 
 ### Model performance summary
 We report the scores obtained from the models trained using keras(theano) code (100 dim model) here.
 
-| Model | -- | FB15K |--  |
-| -----|-- |---|--|
-| -----| MRR | H10| H1|
-| DM | 60.82 | 46.51 | 84.78 |
-| Complex | 66.97 | 55.21 | 85.60 |
-|E|22.86|16.4|35.04|
-|TransE|43.11|24.99|71.97|
-|F|20.21|16.26|27.42|
-|F+Complex(AS)|16.84|11.48|26.42|
-|F+Complex(RAL)|67.46|56.00|85.80|
+| Model | -- | FB15K |--  | -- | WN18 | -- | -- | NYT+FB| -- |
+| -----|-- |---|--|--  | -- |--  | -- |--  | -- |
+| -----| MRR | H10| H1| MRR | H10| H1| MRR | H10| H1|
+| DM | 60.82 | 46.51 | 84.78 | 80.42 | 68.58 | 94.20 | 62.48 | 56.40 | 72.17 |
+| Complex | 66.97 | 55.21 | 85.60 | 93.84 | 93.32 | 94.54 | 69.43 | 64.84 | 76.55 |
+|E|22.86|16.4|35.04|2.74|1.48|5.38|8.83|3.67|19.74|
+|TransE|43.11|24.99|71.97|37.15|4.22|84.96|13.57|8.79|39.63|
+|F|20.21|16.26|27.42| 0.27 | 0.2 | 0.38 | 81.51 | 74.74 | 95.67 |
+|F+Complex(AS)|16.84|11.48|26.42| 90.02 | 88.94 | 91.54 | 79.41 | 72.78 | 89.90 |
+|F+Complex(RAL)|67.46|56.00|85.80|93.99|93.64|94.48|84.21|77.25|95.63|
 
 
 ### Stored models
