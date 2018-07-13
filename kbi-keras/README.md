@@ -4,6 +4,15 @@ Code for our IJCAI 2018 Submission titled "Mitigating the Effect of Out-of-Vocab
 
 Prachi Jain*, Shikhar Murty*, Mausam, Soumen Chakrabarti  (*Equal Contribution)
 
+# Requirements
+```
+python >= 3.5.2
+theano = 0.9.0
+keras = 2.0.2
+joblib
+numpy
+```
+
 # Running instructions
 First clone the repository:
 ```
@@ -45,4 +54,5 @@ with the right set of parameters. (For info on parameters, run dump_data.py -h)
 
 For the datasets, please contact the authors. 
 
+#Export produced embeddings
 
