@@ -42,7 +42,7 @@ class distmult(torch.nn.Module):
         :param o: The entities corresponding to the object position. Must be a torch long tensor of 2 dimensions batch * x
         :return: The computation graph corresponding to the forward pass of the scoring function
         """
-        s = self.E(s)
+        s = self.E(s) if s is not None else self.E.weight.unsqueeze(0)
         r = self.R(r)
         o = self.E(o) if o is not None else self.E.weight.unsqueeze(0)
         if self.clamp_v:
@@ -107,10 +107,10 @@ class complex(torch.nn.Module):
         self.clamp_v = clamp_v
 
     def forward(self, s, r, o):
-        s_im = self.E_im(s)
+        s_im = self.E_im(s) if s is not None else self.E_im.weight.unsqueeze(0)
         r_im = self.R_im(r)
         o_im = self.E_im(o) if o is not None else self.E_im.weight.unsqueeze(0)
-        s_re = self.E_re(s)
+        s_re = self.E_re(s) if s is not None else self.E_re.weight.unsqueeze(0)
         r_re = self.R_re(r)
         o_re = self.E_re(o) if o is not None else self.E_re.weight.unsqueeze(0)
         if self.clamp_v:
@@ -186,7 +186,7 @@ class typed_model(torch.nn.Module):
 
     def forward(self, s, r, o):
         base_forward = self.base_model(s, r, o)
-        s_t = self.E_t(s)
+        s_t = self.E_t(s) if s is not None else self.E_t.weight.unsqueeze(0)
         r_ht = self.R_ht(r)
         r_tt = self.R_tt(r)
         o_t = self.E_t(o) if o is not None else self.E_t.weight.unsqueeze(0)
@@ -239,11 +239,11 @@ class DME(torch.nn.Module):
         self.diplay_norms=display_norms
 
     def forward(self, s, r, o):
-        s_DM = self.E_DM(s)
+        s_DM = self.E_DM(s) if s is not None else self.E_DM.weight.unsqueeze(0)
         r_DM = self.R_DM(r)
         o_DM = self.E_DM(o) if o is not None else self.E_DM.weight.unsqueeze(0)
 
-        s = self.E(s)
+        s = self.E(s) if s is not None else self.E.weight.unsqueeze(0)
         r_head = self.R_head(r)
         r_tail = self.R_tail(r)
         o = self.E(o) if o is not None else self.E.weight.unsqueeze(0)
@@ -319,7 +319,7 @@ class E(torch.nn.Module):
         self.display_norms = display_norms
 
     def forward(self, s, r, o):
-        s = self.E(s)
+        s = self.E(s) if s is not None else self.E.weight.unsqueeze(0)
         r_head = self.R_head(r)
         r_tail = self.R_tail(r)
         o = self.E(o) if o is not None else self.E.weight.unsqueeze(0)
