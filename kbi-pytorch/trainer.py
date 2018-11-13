@@ -61,16 +61,32 @@ class Trainer(object):
         state['model_weights'] = self.scoring_function.state_dict()
         state['optimizer_state'] = self.optim.state_dict()
         state['optimizer_name'] = type(self.optim).__name__
-        state['valid_score'] = valid_score
-        state['test_score'] = test_score
-        filename = os.path.join(self.save_directory, "epoch_%.1f_val_%5.2f_test_%5.2f.pt"%(state['epoch'],
-                                                                                           state['valid_score']['mrr'],
-                                                                                           state['test_score']['mrr']))
+        state['valid_score_e2'] = valid_score['e2']
+        state['test_score_e2'] = test_score['e2']
+        state['valid_score_e1'] = valid_score['e1']
+        state['test_score_e1'] = test_score['e1']
+        state['valid_score_m'] = valid_score['m']
+        state['test_score_m'] = test_score['m']
+        filename = os.path.join(self.save_directory, "epoch_%.1f_val_%5.2f_%5.2f_%5.2f_test_%5.2f_%5.2f_%5.2f.pt"%(state['epoch'],
+                                                                                           state['valid_score_e2']['mrr'], 
+                                                                                           state['valid_score_e1']['mrr'], 
+                                                                                           state['valid_score_m']['mrr'],
+                                                                                           state['test_score_e2']['mrr'],
+                                                                                           state['test_score_e1']['mrr'],
+                                                                                           state['test_score_m']['mrr']))
+
+
         #torch.save(state, filename)
         try:
-            if(state['valid_score']['mrr'] >= self.best_mrr_on_valid["valid"]["mrr"]):
+            if(state['valid_score_m']['mrr'] >= self.best_mrr_on_valid["valid_m"]["mrr"]):
+                print("Best Model details:\n","valid_m",str(state['valid_score_m']), "test_m",str(state["test_score_m"]),
+                                          "valid",str(state['valid_score_e2']), "test",str(state["test_score_e2"]),
+                                          "valid_e1",str(state['valid_score_e1']),"test_e1",str(state["test_score_e1"]))
                 best_name = os.path.join(self.save_directory, "best_valid_model.pt")
-                self.best_mrr_on_valid = {"valid":state['valid_score'], "test":state["test_score"]}
+                self.best_mrr_on_valid = {"valid_m":state['valid_score_m'], "test_m":state["test_score_m"], 
+                                          "valid":state['valid_score_e2'], "test":state["test_score_e2"],
+                                          "valid_e1":state['valid_score_e1'], "test_e1":state["test_score_e1"]}
+
                 if(os.path.exists(best_name)):
                     os.remove(best_name)
                 torch.save(state, best_name)#os.symlink(os.path.realpath(filename), best_name)
