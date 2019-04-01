@@ -39,7 +39,7 @@ python3 main.py -d yago -m typed_model -a '{"embedding_dim":19, "base_model_name
 
 # Results Table
 
-| Model | -- | FB15K |--  |--| -- | YAGO |--  |
+| Model | -- | FB15K |--  |--| YAGO |-- |
 | -----|-- |---|--|--|--|--|
 | -----| MRR | H10| H1|MRR|H10|H1|
 | DM | 69.76 | 86.80 | 59.34 | 58.34 | 75.92 | 48.66 |
