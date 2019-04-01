@@ -40,11 +40,11 @@ python3 main.py -d yago -m typed_model -a '{"embedding_dim":19, "base_model_name
 # Results Table
 
 | Model | -- | FB15K |--  |--| -- | YAGO |--  |
-| -----|-- |---|--|--|--|--|--|
-| -----| MRR | H10| H1| Type Errors |MRR|H10|H1|
-| DM | 69.76 | 86.80 | 59.34 | 13.82 | 58.34 | 75.92 | 48.66 |
-| TypeDM | 75.39 | 89.26 | 66.09 |11.09| 58.57 | 75.00 | 50.76 |
-| Complex | 68.50 | 87.08 | 57.04 | 13.91 | 57.55 | 75.70 | 47.50 |
-| TypeComplex | 75.43 | 89.45 | 66.18 | 10.92 | 58.02 | 72.80 | 50.16 |
+| -----|-- |---|--|--|--|--|
+| -----| MRR | H10| H1|MRR|H10|H1|
+| DM | 69.76 | 86.80 | 59.34 | 58.34 | 75.92 | 48.66 |
+| TypeDM | 75.39 | 89.26 | 66.09 | 58.57 | 75.00 | 50.76 |
+| Complex | 68.50 | 87.08 | 57.04 | 57.55 | 75.70 | 47.50 |
+| TypeComplex | 75.43 | 89.45 | 66.18 | 58.02 | 72.80 | 50.16 |
 
 To implement a new model or loss function, one just needs to create a corresponding class inheriting torch.nn.Module in the corresponding file (including some additional methods like post_epoch in case of models).
