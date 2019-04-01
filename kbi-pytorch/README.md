@@ -38,6 +38,7 @@ python3 main.py -d yago -m typed_model -a '{"embedding_dim":19, "base_model_name
 
 
 # Results Table
+Following are the mean MRR (<e1,r,?> and <?,r,e2>), HITS@10 and HITS@1 of respective models
 
 | Model | -- | FB15K |--  |--| YAGO |-- |
 | -----|-- |---|--|--|--|--|
