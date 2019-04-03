@@ -26,7 +26,9 @@ class Trainer(object):
         self.gradient_clip = gradient_clip
         self.regularization_coefficient = regularization_coefficient
         self.save_directory = save_dir
-        self.best_mrr_on_valid = {"valid":{"mrr":0.0}}
+        self.best_mrr_on_valid = {"valid_m":{"mrr":0.0}, "test_m":{"mrr":0.0},
+                                          "valid_e2":{"mrr":0.0}, "test_e2":{"mrr":0.0},
+                                          "valid_e1":{"mrr":0.0}, "test_e1":{"mrr":0.0}}
         self.verbose = verbose
         self.hooks = hooks if hooks else []
 
