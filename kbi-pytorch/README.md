@@ -38,15 +38,27 @@ python3 main.py -d yago -m typed_model -a '{"embedding_dim":19, "base_model_name
 
 
 # Results Table
-Following are the mean MRR (<e1,r,?> and <?,r,e2>), HITS@10 and HITS@1 of respective models
+Following are the mean/<e1,r,?>/<?,r,e2> MRR, HITS@10 and HITS@1 of respective models
+|     Model   | FB15k  |  --     |   --   | FB15k-237 |    --   |    --  | Yago3-10 |    --   |   --   |
+|-------------|--------|---------|--------|-----------|---------|--------|----------|---------|--------|
+|    --       | Mean   |         |        |           |         |        |          |         |        |
+|    --       | MRR    | HITS@10 | HITS@1 | MRR       | HITS@10 | HITS@1 | MRR      | HITS@10 | HITS@1 |
+| Complex     | 72.15  | 85.66   | 60.85  | 21.72     | 42.96   | 12.29  | 40.9     | 61.53   | 30.97  |
+| TypeComplex | 75.93  | 86.94   | 68.45  | 25.91     | 41.14   | 18.66  | 40.85    | 60.54   | 31.61  |
+|    --       | e1,r,? |         |        |           |         |        |          |         |        |
+| Complex     | 71.83  | 87.64   | 62.18  | 26.58     | 52.11   | 15.16  | 57.39    | 74.46   | 48.26  |
+| TypeComplex | 78.15  | 89.7    | 70.43  | 35.15     | 51.74   | 27.06  | 57.19    | 73.02   | 48.66  |
+|    --       | ?,r,e2 |         |        |           |         |        |          |         |        |
+| Complex     | 68.84  | 83.69   | 59.52  | 16.87     | 33.81   | 9.41   | 24.41    | 48.6    | 13.68  |
+| TypeComplex | 73.71  | 84.17   | 66.48  | 16.67     | 30.55   | 10.26  | 24.52    | 48.06   | 14.56  |
 
-| Model | -- | FB15K |--  |--| YAGO |-- |
+<!--- | Model | -- | FB15K |--  |--| YAGO |-- |
 | -----|-- |---|--|--|--|--|
 | -----| MRR | H10| H1|MRR|H10|H1|
 | DM | 69.76 | 86.80 | 59.34 | 58.34 | 75.92 | 48.66 |
 | TypeDM | 75.39 | 89.26 | 66.09 | 58.57 | 75.00 | 50.76 |
 | Complex | 68.50 | 87.08 | 57.04 | 57.55 | 75.70 | 47.50 |
-| TypeComplex | *75.87* | *87.12* | *66.18* | 58.02 | 72.80 | 50.16 |
+| TypeComplex | *75.87* | *87.12* | *66.18* | 58.02 | 72.80 | 50.16 |--->
 <!--- | TypeComplex | 75.43 | 89.45 | 68.23 | 58.02 | 72.80 | 50.16 | --->
 
 To implement a new model or loss function, one just needs to create a corresponding class inheriting torch.nn.Module in the corresponding file (including some additional methods like post_epoch in case of models).
