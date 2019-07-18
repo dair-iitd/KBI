@@ -43,7 +43,7 @@ Following are scores obtained from pytorch implementation of 200 dim models. Not
 | DM | 69.76 | 86.80 | 59.34 | -- |---|--|
 | TypeDM | 75.39 | 89.26 | 66.09 |-- |---|--|
 | Complex | 68.50 | 87.08 | 57.04 | 54.86 | 69.48 | 47.24 |
-| TypeComplex (code on request) | 82.49 | 89.80 | 78.19 | 56.55 | 70.03 | 49.13 |
+| TypeComplex (code on request) | *82.49* | *89.80* | *78.19* | *56.55* | *70.03* | *49.13* |
  
 ## License
 This software comes under a non-commercial use license, please see the LICENSE file.
