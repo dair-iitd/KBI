@@ -37,13 +37,13 @@ We report the scores obtained from keras(theano) code (100 dim model) here.
 
 Following are scores obtained from pytorch implementation of 200 dim models. Note that even 100 dim model perform better than the model trained using keras(theano) framework with 100 dim embedding.
 
-| Model | -- | FB15K |--  |
-| -----|-- |---|--|
-| -----| MRR | H10| H1|
-| DM | 69.76 | 86.80 | 59.34 | 
-| TypeDM | 75.39 | 89.26 | 66.09 |
-| Complex | 68.50 | 87.08 | 57.04 | 
-| TypeComplex | 75.43 | 89.45 | 66.18 | 
+| Model | -- | FB15K |--  | -- | Yago3-10 |--  |
+| -----|-- |---|--|-- |---|--|
+| -----| MRR | H10| H1| MRR | H10| H1|
+| DM | 69.76 | 86.80 | 59.34 | -- |---|--|
+| TypeDM | 75.39 | 89.26 | 66.09 |-- |---|--|
+| Complex | 68.50 | 87.08 | 57.04 | 54.86 | 69.48 | 47.24 |
+| TypeComplex (code on request) | 82.49 | 89.80 | 78.19 | 56.55 | 70.03 | 49.13 |
  
 ## License
 This software comes under a non-commercial use license, please see the LICENSE file.
