@@ -28,6 +28,7 @@ def main(dataset_root, save_dir, model_name, model_arguments, loss_function, lea
                   add_unknowns=not introduce_oov)
     kvalid = kb.kb(os.path.join(dataset_root, 'valid.txt'), ktrain.entity_map, ktrain.relation_map,
                    add_unknowns=not introduce_oov)
+    '''
     if(verbose > 0):
         utils.colored_print("yellow", "VERBOSE ANALYSIS only for FB15K")
         tpm = extra_utils.fb15k_type_map_fine()
@@ -35,6 +36,7 @@ def main(dataset_root, save_dir, model_name, model_arguments, loss_function, lea
         ktest.augment_type_information(tpm)
         kvalid.augment_type_information(tpm)
         hooks = extra_utils.load_hooks(hooks, ktrain)
+    '''
 
     dltrain = data_loader.data_loader(ktrain, has_cuda)
     dlvalid = data_loader.data_loader(kvalid, has_cuda)

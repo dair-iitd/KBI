@@ -100,11 +100,13 @@ def evaluate(name, ranker, kb, batch_size, verbose=0, top_count=5, hooks=None):
     totals = {"e2":{"mrr":0, "mr":0, "hits10":0, "hits1":0}, "e1":{"mrr":0, "mr":0, "hits10":0, "hits1":0}, "m":{"mrr":0, "mr":0, "hits10":0, "hits1":0}}
     start_time = time.time()
     facts = kb.facts
+    '''
     if(verbose>0):
         totals["correct_type"]={"e1":0, "e2":0}
         entity_type_matrix = kb.entity_type_matrix.cuda()
         for hook in hooks:
             hook.begin()
+    '''
     for i in range(0, int(facts.shape[0]), batch_size):
         start = i
         end = min(i+batch_size, facts.shape[0])
@@ -140,6 +142,7 @@ def evaluate(name, ranker, kb, batch_size, verbose=0, top_count=5, hooks=None):
 
 
         extra = ""
+        '''
         if verbose > 0:
             scores_s.scatter_(1, s.data, score_of_expected_s)
             top_scores_s, top_predictions_s = scores_s.topk(top_count, dim=-1)
@@ -162,7 +165,7 @@ def evaluate(name, ranker, kb, batch_size, verbose=0, top_count=5, hooks=None):
             extra += "TP-o error %5.3f |" % (100*(1.0-totals["correct_type"]["e2"]/end)) #s,r,?
             for hook in hooks:
                 hook(s.data, r.data, o.data, ranks_o, top_scores_o, top_predictions_o, expected_type_o, top_predictions_type_o)
-
+        '''
         utils.print_progress_bar(end, facts.shape[0], "Eval on %s" % name, (("|M| mrr:%3.2f|h10:%3.2f%"
                                                                                   "%|h1:%3.2f|e1| mrr:%3.2f|h10:%3.2f%"
                                                                                   "%|h1:%3.2f|e2| mrr:%3.2f|h10:%3.2f%"
